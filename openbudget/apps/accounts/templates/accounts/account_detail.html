@@ -28,11 +28,16 @@
     <div class="developer">
         {% if LANGUAGE_BIDI %}&#9668;{% else %}&#9658;{% endif %} <a href="">{% trans 'Manage projects' %}</a>
     </div>
+    <div class="social-accounts">
+      {% for provider,account in social_auth.items %}
+      {% if account %}
+      <div class="account">
+        {{ provider }} <a href="{% url "socialauth_disconnect_individual" provider account.uid %}" title="{% trans 'Disconnect' %}">{% trans 'Disconnect' %}</a>
+      </div>
+      {% endif %} 
+      {% endfor %}
+    </div>
 </div>
-
-
-
-
 
 {% endblock actions %}
 

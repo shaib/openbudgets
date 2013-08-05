@@ -55,6 +55,9 @@ urlpatterns = patterns('',
     url(r'^grappelli/',
         include('grappelli.urls')
     ),
+    url(r'^social_auth/', 
+        include('social_auth.urls')
+    ),
     url(r'^',
         include('openbudget.apps.pages.urls')
     ),
