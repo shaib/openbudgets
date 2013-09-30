@@ -58,7 +58,16 @@
             <section id="aux">
 
             </section>
-
+                    {% block social_login %}
+        <div>        	
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <a href="{% url "socialauth_begin" backend="facebook" %}" title="{% trans 'Login with Facebook' %}">Facebook Icon</a>
+            &nbsp;|&nbsp;
+            <a href="{% url "socialauth_begin" backend="google" %}" title="{% trans 'Login with Google' %}">Google Icon</a>
+            &nbsp;|&nbsp;
+            <a href="{% url "socialauth_begin" backend="twitter" %}" title="{% trans 'Login with Twitter' %}">Twitter Icon</a>
+        </div>
+                    {% endblock social_login %}
             {%block content %}
 
             {% endblock content %}

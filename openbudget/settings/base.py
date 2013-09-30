@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     'modeltranslation',
     'taggit',
     'django_gravatar',
+    'social_auth',
     'openbudget.apps.accounts',
     'openbudget.apps.sheets',
     'openbudget.apps.contexts',
@@ -154,6 +155,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+    'social_auth.context_processors.social_auth_by_name_backends',
     'openbudget.commons.context_processors.site',
     'openbudget.commons.context_processors.forms',
     'openbudget.commons.context_processors.openbudgets',
@@ -294,6 +296,40 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 
 SENTRY_DSN = ''
+
+# SOCIAL-AUTH CONF 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_auth.backends.google.GoogleBackend', # Google OpenId backend
+    'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.twitter.TwitterBackend',
+    # BE CAREFUL -- If you add a new backend which doesn't validate emails,
+    #               you open a vulnerability of stealing accounts!
+    #               See: http://django-social-auth.readthedocs.org/en/latest/pipeline.html
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.associate.associate_by_email', # only difference from default
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details'
+)
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/kuku/baklawa'
+
+SOCIAL_AUTH_FORCE_POST_DISCONNECT = True
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+
+FACEBOOK_APP_ID='App ID here'
+FACEBOOK_API_SECRET='App Secret here'
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+
+TWITTER_CONSUMER_KEY='Twitter key here'
+TWITTER_CONSUMER_SECRET='Twitter secret here'
+
 
 ADMINS = (
     ('', ''),

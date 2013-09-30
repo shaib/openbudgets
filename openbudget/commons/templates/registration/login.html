@@ -20,6 +20,14 @@
             {% include 'partials/_form_action_login.html' %}
             <input type="hidden" name="next" value="{{ next }}" />
         </fieldset>
+        <div>        	
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <a href="{% url "socialauth_begin" "facebook" %}" title="{% trans 'Login with Facebook' %}">Facebook Icon</a>
+            &nbsp;|&nbsp;
+            <a href="{% url "socialauth_begin" "google" %}" title="{% trans 'Login with Google' %}">Google Icon</a>
+            &nbsp;|&nbsp;
+            <a href="{% url "socialauth_begin" "twitter" %}" title="{% trans 'Login with Twitter' %}">Twitter Icon</a>
+        </div>
         <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="{% url 'auth_password_reset' %}" title="Forgot password? Reset it here">{% trans 'Forgot password' %}?</a>
